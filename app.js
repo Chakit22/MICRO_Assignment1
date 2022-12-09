@@ -1,7 +1,11 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();
-const mongo = require("./config/connectdb.js");
+const connect_mongoose = require("./config/connectdb.js");
+connect_mongoose(); //Make a connection with mongoose
+
+const category_model = require("./models/Categories.js"); //Get the category model. Basically gets a collection
+const image_model = require("./models/galleryImages.js"); //get the images model. Basically gets a collection.
 
 app.get("/api/health", (req, res) => {
     res.send(`Backend server is active status:active & time:${new Date()}`);
