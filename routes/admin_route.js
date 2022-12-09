@@ -12,4 +12,15 @@ route.post("/addCategory",(req,res) => {
     res.send("Category Added successfully!!");
 });
 
+route.post("/addImage",(req,res) => {
+    const newImage = new Image({
+        name:req.body.name,
+        category:req.body.category,
+        likes:req.body.likes,
+        imageUrl:req.body.imageUrl
+    });
+    newImage.save();
+    res.send("Image Added successfully!!");
+});
+
 module.exports = route;
