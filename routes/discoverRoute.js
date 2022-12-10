@@ -13,4 +13,21 @@ route.get("/getAll",(req,res,next) => {
     });
 });
 
+route.get("/getImages/:categoryId",(req,res,next) => {
+    const categoryId = req.params.categoryId;
+    const four_images = [];
+    Image.find({},function(err,images){
+        images.forEach((ele) => {
+            if(four_images.length < 4){
+                const image_categories = ele.category;
+                image_categories.forEach((catg) => {
+                    if(categoryId == catg.substr(catg.length - 1))
+                        four_images.push(ele);
+                });
+            }
+        });
+        res.send(four_images);
+    });
+});
+
 module.exports = route;
