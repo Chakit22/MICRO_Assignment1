@@ -4,7 +4,9 @@ const Image = require("../models/galleryImages.js");
 const {Router} = require("express");
 const route = Router();
 
-route.post("/addCategory",(req,res) => {
+route.post("/addCategory",(req,res,next) => {
+    if(!req.body.name)
+        return next(new Error("Name category Required!!"));
     const newCategory = new Category({
         name:req.body.name
     });
@@ -12,7 +14,9 @@ route.post("/addCategory",(req,res) => {
     res.send("Category Added successfully!!");
 });
 
-route.post("/addImage",(req,res) => {
+route.post("/addImage",(req,res,next) => {
+    if(!req.body.name)
+        return next(new Error("Name category Required!!"));
     const newImage = new Image({
         name:req.body.name,
         category:req.body.category,

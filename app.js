@@ -16,13 +16,15 @@ app.get("/api/health", (req, res) => {
     res.send(`Backend server is active status:active & time:${new Date()}`);
 });
 
+//404 not found middleware
 app.use((req,res,next) => {
     //No route found
-    const err = new Error("Something went wrong! Please try after some time.");
+    const err = new Error("added 404 route not found middleware");
     err.status = 404;
     next(err);
 });
 
+//Error handling middleware
 app.use((err,req,res,next) => {
     res.status(err.status || 500);
     res.send({
