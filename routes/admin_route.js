@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const Category = require("../models/Categories.js");
 const Image = require("../models/galleryImages.js");
 const {Router} = require("express");
