@@ -41,4 +41,17 @@ route.get("/getImages/:category",async (req,res,next) => {
     }
 });
 
+route.get("/:imageId/likeImage",async (req,res,next) => {
+    try{
+        const imageId = req.params.imageId;
+        const image = await Image.findOne({_id:imageId});
+        var no_likes = image.likes;
+        no_likes++;
+        await Image.updateOne({_id:imageId},{$set:{likes:no_likes}});
+        res.send("Saved Image as a favourite!!");
+    }catch(err){
+        next(err);
+    }
+});
+
 module.exports = route;
