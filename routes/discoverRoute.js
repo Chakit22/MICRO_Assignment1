@@ -18,8 +18,11 @@ route.get("/getImages/:category",async (req,res,next) => {
         const sortByDate_order = (!req.query.sortByDate?undefined:(req.query.sortByDate === "asc")?1:-1);
         const sortByLikes = (req.query.sortByLikes?1:0);
         const category_name = req.params.category;
+        const shuffle = req.query.shuffle;
         var docs = "";
-        if(sortByDate_order){
+        if(shuffle){
+            docs = await Image.aggregate([{$sample:{size:4}}]);
+        }else if(sortByDate_order){
             if(sortByLikes){
                 docs = await Image.find({category:category_name}).sort({createdAt:sortByDate_order,likes:-1}).limit(4);
             }else{
@@ -37,7 +40,5 @@ route.get("/getImages/:category",async (req,res,next) => {
         next(err);
     }
 });
-
-
 
 module.exports = route;
